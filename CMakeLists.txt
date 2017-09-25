@@ -87,7 +87,7 @@ if(ON_WINDOWS)
 endif()
 
 set(dirs clblas activate batch clmath conv dropout fc forcebackprop input layer loaders
-   loss net netdef normalize patches pooling trainers util weights qlearning
+   loss net netdef normalize patches pooling trainers util weights qlearning dueling
    )
 foreach(dir ${dirs})
     file(STRINGS src/${dir}/files.txt ${dir}_src)

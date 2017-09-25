@@ -33,6 +33,7 @@ class OutputData;
 /// NeuralNet: main container class for network layers
 PUBLICAPI
 class DeepCL_EXPORT NeuralNet : public Trainable {
+    int layerIdxIncrement;
 protected:
 #ifdef _WIN32
 #pragma warning(disable: 4251)
@@ -62,7 +63,8 @@ public:
     STATIC NeuralNetMould *maker(EasyCL *cl);
     NeuralNet *clone();
     EasyCL *getCl();
-    PUBLICAPI void addLayer(LayerMaker2 *maker);
+    PUBLICAPI Layer *addLayer(LayerMaker2 *maker, Layer *previousLayer);
+    PUBLICAPI Layer *addLayer(LayerMaker2 *maker);
     PUBLICAPI void initWeights(int layerIndex, float *weights, float *bias);
     PUBLICAPI void initWeights(int layerIndex, float *weights);
     PUBLICAPI void initBias(int layerIndex, float *weights);

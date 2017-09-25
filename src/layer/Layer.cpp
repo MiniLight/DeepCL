@@ -10,12 +10,12 @@ using namespace std;
 PUBLICAPI Layer::Layer(Layer *previousLayer, LayerMaker2 *maker) :
     previousLayer(previousLayer),
     nextLayer(0),
-    layerIndex(previousLayer == 0 ? 0 : previousLayer->layerIndex + 1),
+    layerIndex(0),
     training(false),
     maker(maker)
      {
     if(previousLayer != 0) {
-        previousLayer->nextLayer = this;
+        previousLayer->setNextLayer(this);
     }
 }
 VIRTUAL Layer::~Layer() {
@@ -189,5 +189,9 @@ VIRTUAL TrainerState *Layer::getBiasTrainerState() {
 }
 VIRTUAL void Layer::updateWeights(CLWrapper *weightChangesWrapper, CLWrapper *biasChangesWrapper) {
     throw std::runtime_error("updateWeights not implemented for " + getClassName());
+}
+void Layer::setNextLayer(Layer *nextLayer)
+{
+    this->nextLayer = nextLayer;
 }
 

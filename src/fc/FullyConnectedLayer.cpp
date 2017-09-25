@@ -39,6 +39,7 @@ VIRTUAL std::string FullyConnectedLayer::getClassName() const {
 VIRTUAL void FullyConnectedLayer::setBatchSize(int batchSize) {
     convolutionalLayer->previousLayer = this->previousLayer;
     convolutionalLayer->nextLayer = this->nextLayer;
+    convolutionalLayer->layerIndex = this->layerIndex;
     convolutionalLayer->setBatchSize(batchSize);
     this->batchSize = batchSize;
 }

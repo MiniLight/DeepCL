@@ -41,6 +41,7 @@ using namespace std;
 NeuralNet::NeuralNet(EasyCL *cl) :
         cl(cl) {
     trainer = 0;
+    layerIdxIncrement = 0;
     isTraining = true;
 }
 STATIC NeuralNet *NeuralNet::instance(EasyCL *cl) {
@@ -85,11 +86,18 @@ EasyCL *NeuralNet::getCl() {
     return cl;
 }
 /// Add a network layer, using a LayerMaker2 object
-PUBLICAPI void NeuralNet::addLayer(LayerMaker2 *maker) {
+PUBLICAPI Layer *NeuralNet::addLayer(LayerMaker2 *maker, Layer *previousLayer) {
 //    cout << "neuralnet::insert numplanes " << inputLayerMaker._numPlanes << " imageSize " << inputLayerMaker._imageSize << endl;
     maker->setCl(cl);
-    Layer *layer = maker->createLayer(getLastLayer());
+    Layer *layer = maker->createLayer(previousLayer);
     layers.push_back(layer);
+    layer->layerIndex = layerIdxIncrement++;
+    return layer;
+}
+
+Layer *NeuralNet::addLayer(LayerMaker2 *maker)
+{
+    return addLayer(maker, getLastLayer());
 }
 PUBLICAPI void NeuralNet::initWeights(int layerIndex, float *weights, float *bias) {
     initWeights(layerIndex, weights);

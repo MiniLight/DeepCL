@@ -29,7 +29,7 @@ class DeepCL_EXPORT Layer {
 public:
     Layer *previousLayer;
     Layer *nextLayer;
-    const int layerIndex;
+    int layerIndex;
     bool training;
 
     LayerMaker2 *maker;
@@ -97,6 +97,7 @@ public:
     VIRTUAL TrainerState *getTrainerState();
     VIRTUAL TrainerState *getBiasTrainerState();
     VIRTUAL void updateWeights(CLWrapper *weightChangesWrapper, CLWrapper *biasChangesWrapper);
+    VIRTUAL void setNextLayer(Layer *nextLayer);
 
     // [[[end]]]
 
